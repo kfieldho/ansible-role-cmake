@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: Keith R. Fieldhouse
-  description: Install the latest CMake binary tarball in /opt/kitware
-  company: Kitware, Inc.
+  author: "Keith R. Fieldhouse"
+  description: "Install the latest CMake binary tarball in /opt/kitware"
+  company: "Kitware, Inc."
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
@@ -20,7 +20,7 @@ galaxy_info:
   # the ones that apply to your role. If you don't see your 
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
+  platforms:
   #- name: EL
   #  versions:
   #  - all
@@ -118,6 +118,7 @@ galaxy_info:
   # the platforms above, uncomment those that apply to your role.
   #
   categories:
+   - development
   #- cloud
   #- cloud:ec2
   #- cloud:gce
@@ -126,7 +127,6 @@ galaxy_info:
   #- database
   #- database:nosql
   #- database:sql
-  - development
   #- monitoring
   #- networking
   #- packaging
