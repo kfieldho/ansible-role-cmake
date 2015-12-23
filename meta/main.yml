@@ -101,9 +101,9 @@ galaxy_info:
   #  - 11SP1
   #  - 11SP2
   #  - 11SP3
-  #- name: GenericLinux
-  #  versions:
-  #  - all
+  - name: GenericLinux
+    versions:
+    - all
   #  - any
   #- name: Debian
   #  versions:
@@ -117,7 +117,7 @@ galaxy_info:
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
@@ -126,7 +126,7 @@ galaxy_info:
   #- database
   #- database:nosql
   #- database:sql
-  #- development
+  - development
   #- monitoring
   #- networking
   #- packaging
