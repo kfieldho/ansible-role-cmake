@@ -6,8 +6,8 @@
   register: opt_kitware
 
 - name: Ensure installation directory
-  sudo: True
   file: state=directory mode=0755 dest={{cmake_dest_dir}}
+  become: yes
   when: opt_kitware.stat.exists == False
 
 - name: Check to See if CMake is already installed
@@ -22,11 +22,10 @@
 
 - name: Install CMake
   unarchive: copy=no src={{cmake_temp}} dest={{cmake_dest_dir}}
-  sudo: True
+  become: yes
   when: (bin_cmake.stat.exists == False) and  (cmake_downloaded | success)
 
 - name: Add CMake to the PATH
-  sudo: no
   lineinfile:
     dest: "{{ cmake_rcfile }}"
     line: export PATH={{ cmake_install_dir }}/bin:$PATH
