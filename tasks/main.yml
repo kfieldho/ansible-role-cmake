@@ -1,6 +1,11 @@
 ---
 # tasks file for kfieldho.cmake
 
+- name: Copy goss tests template
+  template:
+    src: test_cmake.yml.j2
+    dest: /root/test_cmake.yml
+
 - name: Check to See if CMake root exists
   stat:
     path: "{{ cmake_dest_dir }}"
