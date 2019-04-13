@@ -1,34 +1,47 @@
 ---
-#4 tasks fil:se for kfieldho.cmake
+# tasks file for kfieldho.cmake
 
 - name: Check to See if CMake root exists
-  stat: path={{cmake_dest_dir}}
+  stat:
+    path: "{{ cmake_dest_dir }}"
   register: opt_kitware
 
 - name: Ensure installation directory
-  sudo: True
-  file: state=directory mode=0755 dest={{cmake_dest_dir}}
-  when: opt_kitware.stat.exists == False
+  become: True
+  file:
+    state: directory
+    mode: 0755
+    dest: "{{ cmake_dest_dir }}"
+  when: not opt_kitware.stat.exists
 
 - name: Check to See if CMake is already installed
-  stat: path={{ cmake_install_dir }}/bin/cmake
+  stat:
+    path: "{{ cmake_install_dir }}/bin/cmake"
   register: bin_cmake
-  changed_when: bin_cmake.stat.exists == False
+  changed_when: False
 
 - name: Download CMake
-  get_url: url={{cmake_url}} dest={{cmake_temp}} validate_certs=False
+  get_url:
+    url: "{{ cmake_url }}"
+    dest: "{{ cmake_temp }}"
+    validate_certs: False
   register: cmake_downloaded
-  when: bin_cmake.stat.exists == False
+  when: not bin_cmake.stat.exists
 
 - name: Install CMake
-  unarchive: copy=no src={{cmake_temp}} dest={{cmake_dest_dir}}
-  sudo: True
-  when: (bin_cmake.stat.exists == False) and  (cmake_downloaded | success)
+  unarchive:
+    copy: no
+    src: "{{ cmake_temp }}"
+    dest: "{{ cmake_dest_dir }}"
+  become: True
+  when: (not bin_cmake.stat.exists)
 
 - name: Add CMake to the PATH
-  sudo: no
-  lineinfile:
-    dest: "{{ cmake_rcfile }}"
-    line: export PATH={{ cmake_install_dir }}/bin:$PATH
-    state: present
+  become: no
   when: cmake_modify_path
+  blockinfile:
+    state: present
+    dest: "{{ cmake_rcfile }}"
+    block: |
+      export PATH={{ cmake_install_dir }}/bin:$PATH
+      export CMAKE_HOME={{ cmake_install_dir }}
