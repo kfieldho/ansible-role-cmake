@@ -1,0 +1,7 @@
+file:
+  /opt/kitware:
+    exists: true
+    filetype: directory
+  /opt/kitware/cmake-3.14.2-Linux-x86_64:
+    exists: true
+    filetype: directory
