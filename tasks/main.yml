@@ -12,7 +12,7 @@
   register: opt_kitware
 
 - name: Ensure installation directory
-  become: True
+  become: true
   file:
     state: directory
     mode: 0755
@@ -23,25 +23,26 @@
   stat:
     path: "{{ cmake_install_dir }}/bin/cmake"
   register: bin_cmake
-  changed_when: False
+  changed_when: false
 
 - name: Download CMake
   get_url:
     url: "{{ cmake_url }}"
     dest: "{{ cmake_temp }}"
-    validate_certs: False
+    validate_certs: false
   register: cmake_downloaded
   when: not bin_cmake.stat.exists
 
 - name: Install CMake
   unarchive:
-    copy: no
+    copy: false
     src: "{{ cmake_temp }}"
     dest: "{{ cmake_dest_dir }}"
-  become: True
+  become: true
   when: (not bin_cmake.stat.exists)
 
 - name: Ensure CMake rcfile exists
+  become: true
   file:
     path: "{{ cmake_rcfile }}"
     owner: root
@@ -51,6 +52,7 @@
 
 - name: Add CMake to everyone's PATH
   when: cmake_modify_path
+  become: true
   blockinfile:
     state: present
     dest: "{{ cmake_rcfile }}"
