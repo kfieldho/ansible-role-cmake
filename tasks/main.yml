@@ -41,8 +41,15 @@
   become: True
   when: (not bin_cmake.stat.exists)
 
-- name: Add CMake to the PATH
-  become: no
+- name: Ensure CMake rcfile exists
+  file:
+    path: "{{ cmake_rcfile }}"
+    owner: root
+    group: root
+    mode: 0644
+    state: touch
+
+- name: Add CMake to everyone's PATH
   when: cmake_modify_path
   blockinfile:
     state: present
