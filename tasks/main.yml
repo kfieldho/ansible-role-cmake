@@ -31,6 +31,9 @@
     dest: "{{ cmake_temp }}"
     validate_certs: false
   register: cmake_downloaded
+  until: cmake_downloaded is success
+  retries: 10
+  delay: 2
   when: not bin_cmake.stat.exists
 
 - name: Install CMake
