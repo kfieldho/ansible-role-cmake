@@ -44,8 +44,14 @@
   become: true
   when: (not bin_cmake.stat.exists)
 
+- name: Verify if CMAke rcfile exists
+  stat:
+    path: "{{ cmake_rcfile }}"
+  register: cmake_profile
+
 - name: Ensure CMake rcfile exists
   become: true
+  when: not cmake_profile.stat.exists
   file:
     path: "{{ cmake_rcfile }}"
     owner: root
@@ -60,5 +66,5 @@
     state: present
     dest: "{{ cmake_rcfile }}"
     block: |
-      export PATH={{ cmake_install_dir }}/bin:$PATH
+      export PATH={{ cmake_install_dir }}bin:$PATH
       export CMAKE_HOME={{ cmake_install_dir }}
