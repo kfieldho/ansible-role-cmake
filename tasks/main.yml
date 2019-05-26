@@ -60,7 +60,7 @@
     state: touch
 
 - name: Add CMake to everyone's PATH
-  when: cmake_modify_path
+  when: cmake_modify_path|bool
   become: true
   blockinfile:
     state: present
