@@ -27,7 +27,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: kfieldho.cmake, cmake_version: 3.4.1 }
+         - { role: dockpack.base_cmake, cmake_version: 3.4.1 }
 
 License
 -------
@@ -39,3 +39,6 @@ Author Information
 
 Keith Fieldhouse
 keith.fieldhouse@kitware.com
+
+Bas Meijer
+bas.meijer@me.com
