@@ -2,4 +2,4 @@
 - hosts: all
 
   roles:
-    - role: ansible-role-cmake
+    - role: base_cmake
