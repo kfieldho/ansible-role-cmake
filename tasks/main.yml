@@ -59,6 +59,28 @@
     mode: 0644
     state: touch
 
+- name: ensure current symlink exists
+  file:
+    src: "{{ cmake_install_dir }}"
+    dest: "{{ cmake_dest_dir }}/current"
+    state: link
+    owner: root
+    group: root
+    mode: 0666
+  tags:
+    - symlink
+
+- name: ensure kitware symlink exists
+  file:
+    src: "{{ cmake_dest_dir }}"
+    dest: /opt/kitware
+    state: link
+    owner: root
+    group: root
+    mode: 0666
+  tags:
+    - symlink
+
 - name: Add CMake to everyone's PATH
   when: cmake_modify_path|bool
   become: true
