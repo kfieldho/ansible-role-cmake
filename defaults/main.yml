@@ -6,7 +6,7 @@ cmake_version: 3.14
 cmake_minor_version: 2
 # yamllint disable-line rule:line-length
 cmake_temp: /tmp/cmake-{{ cmake_version }}.{{ cmake_minor_version }}-{{ cmake_pkg_type }}.tar.gz
-cmake_dest_dir: /opt/kitware
+cmake_dest_dir: /opt/cmake
 # yamllint disable-line rule:line-length
 cmake_install_dir: "{{ cmake_dest_dir }}/cmake-{{cmake_version}}.{{ cmake_minor_version }}-{{cmake_pkg_type}}/"
 cmake_modify_path: true
