@@ -1,4 +1,5 @@
 ---
+# Standards: 0.2
 galaxy_info:
   role_name: base_cmake
   namespace: dockpack
@@ -30,3 +31,4 @@ galaxy_info:
     - development
 
 dependencies: []
+...

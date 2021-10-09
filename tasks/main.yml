@@ -14,6 +14,7 @@
 
 - name: Ensure installation directory
   become: true
+  become_user: root
   file:
     state: directory
     mode: 0755
@@ -38,12 +39,14 @@
   when: not bin_cmake.stat.exists
 
 - name: Install CMake
+  become: true
+  become_user: root
   unarchive:
     copy: false
     src: "{{ cmake_temp }}"
     dest: "{{ cmake_dest_dir }}"
     mode: 0755
-  become: true
+
   when: (not bin_cmake.stat.exists)
 
 - name: Verify if CMAke rcfile exists
@@ -53,6 +56,7 @@
 
 - name: Ensure CMake rcfile exists
   become: true
+  become_user: root
   when: not cmake_profile.stat.exists
   file:
     path: "{{ cmake_rcfile }}"
@@ -61,7 +65,7 @@
     mode: 0644
     state: touch
 
-- name: ensure current symlink exists
+- name: Ensure current symlink exists
   file:
     src: "{{ cmake_install_dir }}"
     dest: "{{ cmake_dest_dir }}/current"
@@ -72,7 +76,7 @@
   tags:
     - symlink
 
-- name: ensure kitware symlink exists
+- name: Ensure kitware symlink exists
   file:
     src: "{{ cmake_dest_dir }}"
     dest: /opt/kitware
@@ -86,9 +90,11 @@
 - name: Add CMake to everyone's PATH
   when: cmake_modify_path|bool
   become: true
+  become_user: root
   blockinfile:
     state: present
     dest: "{{ cmake_rcfile }}"
     block: |
       export PATH={{ cmake_install_dir }}bin:$PATH
       export CMAKE_HOME={{ cmake_install_dir }}
+...
